@@ -7,6 +7,7 @@ var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 
+var jwt    = require('jsonwebtoken');
 var config = require('./app/config/config');
 var User   = require('./src/models/user');
 
@@ -56,8 +57,49 @@ app.get('/init', function(req, res) {
 	});
 });
 
+app.post('/authenticate', function (req, res) {
+    User.findOne({username: req.body.username, password: req.body.password}, function (err, user) {
+        if (err) throw err;
+
+        if (!user) {
+            return res.json({ success: false, message: 'User not found'});
+        }
+
+        // create a token
+        var token = jwt.sign(user, app.get('secret'), {
+            expiresIn: 1440 // expires in 24 hours
+        });
+
+        res.json({
+            success: true,
+            token: token
+        });
+    });
+});
+
 // api routes
 var apiRoutes = express.Router();
+
+apiRoutes.use(function (req, res, next) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if (token) {
+        // verify token
+        jwt.verify(token, app.get('secret'), function(err, decoded) {
+            if (err) {
+                return res.json({ success: false, message: 'Token not valid' });
+            }
+
+			req.decoded = decoded;
+			next();
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            message: 'No token provided'
+        });
+	}
+});
 
 // route to return all users (GET http://localhost:8080/api/users)
 apiRoutes.get('/users', function(req, res) {
