@@ -20,7 +20,7 @@ mongoose.connect(config.database);
 app.set('secret', config.secret);
 
 // use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // use morgan to log requests to the console
@@ -30,31 +30,31 @@ app.use(morgan('dev'));
 // =======================
 // ROUTES ================
 // =======================
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
-app.get('/init', function(req, res) {
-	// remove all users
-	User.remove(function(err, removed) {
-		console.log('remove all users!');
-	});
+app.get('/init', function (req, res) {
+    // remove all users
+    User.remove(function (err, removed) {
+        console.log('remove all users!');
+    });
 
-	// create admin
-	var admin = new User({ 
-		name: 'Admin',
-		username: 'admin',
-		password: 'password',
-		admin: true 
-	});
+    // create admin
+    var admin = new User({
+        name: 'Admin',
+        username: 'admin',
+        password: 'password',
+        admin: true
+    });
 
-	// save the sample user
-	admin.save(function(err) {
-		if (err) throw err;
+    // save the sample user
+    admin.save(function (err) {
+        if (err) throw err;
 
-		console.log('Setup: successful!');
-		res.json({ success: true });
-	});
+        console.log('Setup: successful!');
+        res.json({success: true});
+    });
 });
 
 app.post('/authenticate', function (req, res) {
@@ -62,7 +62,7 @@ app.post('/authenticate', function (req, res) {
         if (err) throw err;
 
         if (!user) {
-            return res.json({ success: false, message: 'User not found'});
+            return res.json({success: false, message: 'User not found'});
         }
 
         // create a token
@@ -85,27 +85,27 @@ apiRoutes.use(function (req, res, next) {
 
     if (token) {
         // verify token
-        jwt.verify(token, app.get('secret'), function(err, decoded) {
+        jwt.verify(token, app.get('secret'), function (err, decoded) {
             if (err) {
-                return res.json({ success: false, message: 'Token not valid' });
+                return res.json({success: false, message: 'Token not valid'});
             }
 
-			req.decoded = decoded;
-			next();
+            req.decoded = decoded;
+            next();
         });
     } else {
         return res.status(403).send({
             success: false,
             message: 'No token provided'
         });
-	}
+    }
 });
 
 // route to return all users (GET http://localhost:8080/api/users)
-apiRoutes.get('/users', function(req, res) {
-	User.find({}, function(err, users) {
-		res.json(users);
-	});
+apiRoutes.get('/users', function (req, res) {
+    User.find({}, function (err, users) {
+        res.json(users);
+    });
 });
 
 app.use('/api', apiRoutes);
