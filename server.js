@@ -34,29 +34,6 @@ app.get('/', function (req, res) {
     res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
-app.get('/init', function (req, res) {
-    // remove all users
-    User.remove(function (err, removed) {
-        console.log('remove all users!');
-    });
-
-    // create admin
-    var admin = new User({
-        name: 'Admin',
-        username: 'admin',
-        password: 'password',
-        admin: true
-    });
-
-    // save the sample user
-    admin.save(function (err) {
-        if (err) throw err;
-
-        console.log('Setup: successful!');
-        res.json({success: true});
-    });
-});
-
 app.post('/authenticate', function (req, res) {
     User.findOne({username: req.body.username, password: req.body.password}, function (err, user) {
         if (err) throw err;
