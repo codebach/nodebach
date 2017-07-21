@@ -2,10 +2,8 @@ FROM node:latest
 
 MAINTAINER codebach
 
-# To not use cache on package update
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
-RUN mkdir -p /app && cp -a /tmp/node_modules /app/
+ADD package.json /app/package.json
+RUN cd /app && npm install
 
 # Setup
 WORKDIR /app
