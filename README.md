@@ -1,5 +1,5 @@
-Nodejs-MongoDB-Rest (WIP)
-=========================
+NodeBach (WIP)
+==============
 
 An application with Nodejs, using Express and MongoDB.
 
