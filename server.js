@@ -16,7 +16,7 @@ var User   = require('./src/models/user');
 // CONFIGURATION =========
 // =======================
 var port = process.env.PORT || 3000;
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useMongoClient: true });
 app.set('secret', config.secret);
 
 // use body parser so we can get info from POST and/or URL parameters
