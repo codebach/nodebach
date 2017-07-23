@@ -2,13 +2,13 @@ FROM node:latest
 
 MAINTAINER codebach
 
-ADD package.json /app/package.json
-RUN cd /app && npm install
+ENV NODE_ENV development
 
-# Setup
+RUN npm install -g nodemon
+
 WORKDIR /app
-ADD . /app
 
-ENV NODE_ENV production
+ADD package.json /app/package.json
+RUN npm install
 
 EXPOSE 3000

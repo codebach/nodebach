@@ -9,10 +9,15 @@ services:
     command: "--smallfiles --logpath=/dev/null"
 
   web:
-    build: .
-    command: node server.js
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: nodemon server.js
     ports:
       - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
     links:
       - db
     environment:
