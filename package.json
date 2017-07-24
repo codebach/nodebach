@@ -1,5 +1,8 @@
 {
   "name": "codebach-nodebach",
+  "version": "1.0.0",
+  "author": "Ahmet Akbana <ahmetakbana@gmail.com>",
+  "license": "MIT",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -7,5 +10,9 @@
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.11.1",
     "morgan": "^1.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:codebach/nodebach.git"
   }
 }
