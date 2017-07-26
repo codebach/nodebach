@@ -15,9 +15,7 @@ var User   = require('./src/models/user');
 // =======================
 // CONFIGURATION =========
 // =======================
-var port = process.env.PORT || 3000;
 mongoose.connect(config.database, { useMongoClient: true });
-app.set('secret', config.secret);
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({extended: false}));
@@ -31,7 +29,7 @@ app.use(morgan('dev'));
 // ROUTES ================
 // =======================
 app.get('/', function (req, res) {
-    res.send('Hello! The API is at http://localhost:' + port + '/api');
+    res.send('Hello! The API is at http://localhost:' + config.port + '/api');
 });
 
 app.post('/authenticate', function (req, res) {
@@ -43,7 +41,7 @@ app.post('/authenticate', function (req, res) {
         }
 
         // create a token
-        var token = jwt.sign(user, app.get('secret'), {
+        var token = jwt.sign(user, config.secret, {
             expiresIn: 1440 // expires in 24 hours
         });
 
@@ -91,5 +89,5 @@ app.use('/api', apiRoutes);
 // =======================
 // START SERVER ==========
 // =======================
-app.listen(port);
-console.log('Go to http://localhost:' + port);
+app.listen(config.port);
+console.log('Go to http://localhost:' + config.port);
