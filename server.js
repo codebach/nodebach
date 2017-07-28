@@ -42,7 +42,7 @@ app.post('/authenticate', function (req, res) {
 
         // create a token
         var token = jwt.sign(user, config.secret, {
-            expiresIn: 1440 // expires in 24 hours
+            expiresIn: parseInt(config.tokenTime)
         });
 
         res.json({

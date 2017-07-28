@@ -4,5 +4,6 @@ module.exports = {
     'secret': process.env.API_SECRET,
     'database': process.env.DATABASE_URL,
     'env': process.env.NODE_ENV,
-    'port': process.env.PORT
+    'port': process.env.PORT,
+    'tokenTime': process.env.TOKEN_TIME
 };
