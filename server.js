@@ -21,8 +21,9 @@ mongoose.connect(config.database, { useMongoClient: true });
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// use morgan to log requests to the console
-app.use(morgan('dev'));
+if (config.env == 'dev') {
+    app.use(morgan('dev'));
+}
 
 
 // =======================

@@ -8,7 +8,7 @@ var mongoose    = require('mongoose');
 var config = require('./app/config/config');
 var User   = require('./src/models/user');
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useMongoClient: true });
 
 app.get('/init', function (req, res) {
     // remove all users
