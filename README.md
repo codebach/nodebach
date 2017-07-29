@@ -5,13 +5,13 @@ An application with Nodejs, using Express and MongoDB.
 
 ## Installation
 
-1-) Copy `.env.dist` to `.env` file
+1-) Copy `.env.dist` to `.env` file and set your environment variables
 
 2-) Set `command` in `docker-compse.yml` to use `install.js`
 
 ```yaml
 web:
-    command: node install.js
+    command: nodemon install.js
 ```
 
 3-) Execute:
