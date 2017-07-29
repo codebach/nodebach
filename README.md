@@ -5,14 +5,16 @@ An application with Nodejs, using Express and MongoDB.
 
 ## Installation
 
-1-) Set `command` in `docker-compse.yml` to use `install.js`
+1-) Copy `.env.dist` to `.env` file
+
+2-) Set `command` in `docker-compse.yml` to use `install.js`
 
 ```yaml
 web:
     command: node install.js
 ```
 
-2-) Execute:
+3-) Execute:
 
 ```
 docker-compose build --no-cache
@@ -22,13 +24,13 @@ docker-compose build --no-cache
 docker-compose up
 ```
 
-3-) Visit `http://localhost:3000/init`
+4-) Visit `http://localhost:3000/init`
 
-4-) Set `command` in `docker-compose.yml` to `server.js`
+5-) Set `command` in `docker-compose.yml` to `server.js`
 
-5-) Restart docker
+6-) Restart docker
 
-6-) Remove `ìnstall.js`
+7-) Remove `ìnstall.js`
 
 ## Authentication
 
