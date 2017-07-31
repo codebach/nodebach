@@ -61,7 +61,7 @@ apiRoutes.use(function (req, res, next) {
 
     if (token) {
         // verify token
-        jwt.verify(token, app.get('secret'), function (err, decoded) {
+        jwt.verify(token, config.secret, function (err, decoded) {
             if (err) {
                 return res.json({success: false, message: 'Token not valid'});
             }
