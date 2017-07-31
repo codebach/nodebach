@@ -7,9 +7,7 @@ var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 
-var jwt    = require('jsonwebtoken');
 var config = require('./app/config/config');
-var User   = require('./src/models/user');
 var routes = require('./app/routes/routes');
 
 
@@ -31,39 +29,6 @@ if (config.env == 'dev') {
 // ROUTES ================
 // =======================
 app.use(routes);
-
-// api routes
-var apiRoutes = express.Router();
-
-apiRoutes.use(function (req, res, next) {
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-    if (token) {
-        // verify token
-        jwt.verify(token, config.secret, function (err, decoded) {
-            if (err) {
-                return res.json({success: false, message: 'Token not valid'});
-            }
-
-            req.decoded = decoded;
-            next();
-        });
-    } else {
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided'
-        });
-    }
-});
-
-// route to return all users (GET http://localhost:8080/api/users)
-apiRoutes.get('/users', function (req, res) {
-    User.find({}, function (err, users) {
-        res.json(users);
-    });
-});
-
-app.use('/api', apiRoutes);
 
 
 // =======================

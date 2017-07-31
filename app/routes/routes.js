@@ -1,5 +1,6 @@
 var express = require('express');
 var auth = require('./auth');
+var api = require('./api/user');
 
 const router = express.Router();
 
@@ -9,5 +10,6 @@ router.get('/', function (req, res) {
 });
 
 router.use(auth);
+router.use('/api', api);
 
 module.exports = router;
