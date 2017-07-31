@@ -1,4 +1,5 @@
 var express = require('express');
+var auth = require('./auth');
 
 const router = express.Router();
 
@@ -6,5 +7,7 @@ const router = express.Router();
 router.get('/', function (req, res) {
     res.send('Welcome to Nodebach!');
 });
+
+router.use(auth);
 
 module.exports = router;
