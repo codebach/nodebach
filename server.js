@@ -10,6 +10,7 @@ var mongoose    = require('mongoose');
 var jwt    = require('jsonwebtoken');
 var config = require('./app/config/config');
 var User   = require('./src/models/user');
+var routes = require('./app/routes/routes');
 
 
 // =======================
@@ -29,9 +30,7 @@ if (config.env == 'dev') {
 // =======================
 // ROUTES ================
 // =======================
-app.get('/', function (req, res) {
-    res.send('Hello! The API is at http://localhost:' + config.port + '/api');
-});
+app.use(routes);
 
 app.post('/authenticate', function (req, res) {
     User.findOne({username: req.body.username, password: req.body.password}, function (err, user) {
