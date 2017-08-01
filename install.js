@@ -6,7 +6,7 @@ var app         = express();
 var mongoose    = require('mongoose');
 
 var config = require('./app/config/config');
-var User   = require('./src/models/user');
+var User   = require('./app/models/user');
 
 mongoose.connect(config.database, { useMongoClient: true });
 

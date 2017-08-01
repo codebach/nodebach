@@ -1,6 +1,6 @@
 var express = require('express');
-var tokenMiddleware = require('./../token.middleware.js');
-var User   = require('./../../../src/models/user');
+var tokenMiddleware = require('../token.middleware.js');
+var User = require('../../models/user');
 
 const router = express.Router();
 
